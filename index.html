@@ -19,18 +19,33 @@
             --white: #ffffff;
             --error: #ff4b4b;
             --success: #00ff88;
+            --bg-main: #050a14;
+            --card-bg: #0f172a;
+        }
+
+        /* --- Light Mode Overrides --- */
+        body.light-mode {
+            --bg-main: #f8fafc;
+            --navy-dark: #f8fafc;
+            --navy-mural: #ffffff;
+            --white: #0f172a;
+            --text-gray: #475569;
+            --card-bg: #e2e8f0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--navy-dark); color: var(--white); overflow-x: hidden; width: 100%; line-height: 1.6; }
+        body { background-color: var(--bg-main); color: var(--white); overflow-x: hidden; width: 100%; line-height: 1.6; transition: background 0.3s ease; }
 
         /* --- UI Elements --- */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(5, 10, 20, 0.95); backdrop-filter: blur(10px); position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid rgba(179, 147, 89, 0.2); }
         .logo { font-size: 20px; font-weight: 900; color: var(--white); text-decoration: none; }
         .logo span { color: var(--gold); }
 
+        /* Theme Toggle Icon */
+        .theme-toggle { cursor: pointer; font-size: 20px; color: var(--gold); margin-right: 15px; display: flex; align-items: center; }
+
         .section-container { padding: 80px 8%; border-bottom: 1px solid rgba(179, 147, 89, 0.1); }
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1e293b 0%, #050a14 100%); position: relative; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, var(--navy-light) 0%, var(--navy-dark) 100%); position: relative; }
         .hero h1 { font-size: clamp(40px, 10vw, 75px); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; line-height: 0.9; }
         .hero h1 span { color: var(--gold); }
 
@@ -49,7 +64,7 @@
         .card-container { perspective: 1000px; margin: 20px 0; display: flex; justify-content: center; }
         .visa-card { width: 100%; max-width: 340px; height: 200px; background: linear-gradient(135deg, #1a1a1a 0%, #434343 100%); border-radius: 15px; padding: 25px; position: relative; border: 1px solid rgba(255,255,255,0.1); }
         .chip { width: 45px; height: 35px; background: linear-gradient(135deg, #d4af37 0%, #f9e29c 100%); border-radius: 5px; margin-bottom: 20px; }
-        .card-num { font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 2px; margin-bottom: 15px; }
+        .card-num { font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 2px; margin-bottom: 15px; color: white; }
 
         /* --- Token --- */
         .token-box { background: #000; padding: 15px; border-radius: 10px; border: 1px solid var(--success); margin-top: 10px; text-align: center; }
@@ -59,14 +74,18 @@
         /* --- Forms & Modals --- */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; overflow-y: auto; }
         .modal-content { background: var(--navy-mural); width: 100%; max-width: 450px; padding: 30px; border-radius: 25px; border: 1px solid var(--gold); }
-        input { width: 100%; padding: 15px; margin-bottom: 15px; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; color: white; }
+        input, select { width: 100%; padding: 15px; margin-bottom: 15px; background: var(--card-bg); border: 1px solid var(--gold-glow); border-radius: 10px; color: var(--white); }
         .primary-btn { width: 100%; padding: 16px; background: var(--gold); color: #000; border: none; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; }
+        
+        /* Multi-step Display */
+        .reg-step { display: none; }
+        .reg-step.active { display: block; }
 
         /* --- Dashboard --- */
         #dash-view { display: none; padding: 120px 5% 50px; }
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
-        .stat-item { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border-left: 4px solid var(--gold); }
-        .details-pane { background: #0f172a; border: 1px solid var(--gold); border-radius: 15px; padding: 25px; margin-top: 20px; display: none; }
+        .stat-item { background: var(--card-bg); padding: 25px; border-radius: 15px; border-left: 4px solid var(--gold); color: var(--white); }
+        .details-pane { background: var(--card-bg); border: 1px solid var(--gold); border-radius: 15px; padding: 25px; margin-top: 20px; display: none; }
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
         .image-block { width: 100%; height: 350px; border-radius: 15px; background-size: cover; background-position: center; margin: 20px 0; border: 1px solid var(--gold-glow); }
@@ -74,11 +93,14 @@
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body>
+<body id="bodyTag">
 
     <nav>
         <a href="#" class="logo">NITADOL <span>BANK</span></a>
-        <div style="display:flex; gap: 10px;">
+        <div style="display:flex; align-items: center; gap: 10px;">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <span id="themeIcon">🌙</span>
+            </div>
             <button class="primary-btn" style="padding: 8px 15px; width: auto;" onclick="toggleModal('loginMod')">Login</button>
         </div>
     </nav>
@@ -110,7 +132,7 @@
             <p>Founded in Zurich, Nitadol has provided private ledger services for over two decades, bridging the gap between traditional bullion and modern digital assets.</p>
         </section>
 
-        <section class="section-container" style="background: #080e1a;">
+        <section class="section-container" style="background: var(--navy-mural);">
             <h2>The <span>Vault</span></h2>
             <div class="image-block" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop');"></div>
             <p>Security is not a feature; it is our foundation. Our deep-cold storage ensures assets remain untouchable by third parties.</p>
@@ -127,10 +149,10 @@
         <div style="display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div>
                 <h1 id="dName">Loading...</h1>
-                <p id="dID" style="color:var(--gold); font-family: 'JetBrains Mono';"></p>
+                <p style="color:var(--gold); font-family: 'JetBrains Mono';">Account ID: <span id="dID"></span></p>
             </div>
             <div style="display:flex; gap:10px;">
-                <button class="primary-btn" style="width:auto; background:white; padding: 10px 20px;" onclick="toggleDetails()">User Profile</button>
+                <button class="primary-btn" style="width:auto; background:var(--white); color:var(--bg-main); padding: 10px 20px;" onclick="toggleDetails()">User Profile</button>
                 <button class="primary-btn" style="width:auto; padding: 10px 20px;" onclick="signOutUser()">Logout</button>
             </div>
         </div>
@@ -140,13 +162,15 @@
             <div class="detail-row"><span>Legal Name</span><span id="pName">...</span></div>
             <div class="detail-row"><span>Email</span><span id="pEmail">...</span></div>
             <div class="detail-row"><span>Phone</span><span id="pPhone">...</span></div>
+            <div class="detail-row"><span>Address</span><span id="pAddress">...</span></div>
+            <div class="detail-row"><span>Country</span><span id="pCountry">...</span></div>
             <div class="detail-row"><span>Status</span><span style="color:var(--success)">GOLD TIER</span></div>
         </div>
 
         <div class="stat-grid">
             <div class="stat-item" style="background: linear-gradient(135deg, #1e293b, #050a14);">
                 <p style="font-size:12px; color:var(--text-gray)">TOTAL BALANCE</p>
-                <h1 id="dBal" style="font-size:48px; margin:10px 0;">€0.00</h1>
+                <h1 id="dBal" style="font-size:48px; margin:10px 0; color:white;">€0.00</h1>
                 <div style="display:flex; gap:10px;">
                     <button class="primary-btn" onclick="toggleModal('transMod')">Transfer</button>
                     <button class="primary-btn" style="background:transparent; color:white; border:1px solid white;" onclick="toggleModal('transMod')">Withdraw</button>
@@ -160,9 +184,9 @@
                     <div style="display:flex; justify-content:space-between; align-items:flex-end;">
                         <div>
                             <p style="font-size:8px; color:var(--text-gray)">HOLDER</p>
-                            <p id="cardHolder" style="font-size:12px; text-transform:uppercase;">...</p>
+                            <p id="cardHolder" style="font-size:12px; text-transform:uppercase; color:white;">...</p>
                         </div>
-                        <p style="font-size:12px;">12/28</p>
+                        <p style="font-size:12px; color:white;">12/28</p>
                     </div>
                 </div>
             </div>
@@ -180,13 +204,27 @@
 
     <div class="modal" id="regMod">
         <div class="modal-content">
-            <h2>Vault Application</h2>
-            <input type="text" id="rName" placeholder="Full Name">
-            <input type="email" id="rEmail" placeholder="Email">
-            <input type="tel" id="rPhone" placeholder="Mobile">
-            <input type="password" id="rPass" placeholder="Password">
-            <button class="primary-btn" onclick="registerUser()">Create Account</button>
-            <p onclick="toggleModal('regMod')" style="text-align:center; margin-top:15px; font-size:12px; cursor:pointer;">Close</p>
+            <div id="step1" class="reg-step active">
+                <h2 style="margin-bottom:20px;">Vault Application <span style="font-size:12px; color:var(--gold);">(1/2)</span></h2>
+                <input type="text" id="rName" placeholder="Full Name">
+                <input type="email" id="rEmail" placeholder="Email Address">
+                <input type="password" id="rPass" placeholder="Secure Password">
+                <button class="primary-btn" onclick="nextStep(2)">Continue</button>
+            </div>
+
+            <div id="step2" class="reg-step">
+                <h2 style="margin-bottom:20px;">Security Profile <span style="font-size:12px; color:var(--gold);">(2/2)</span></h2>
+                <input type="text" id="rCountry" placeholder="Country of Residence">
+                <input type="text" id="rAddress" placeholder="Physical Address">
+                <input type="tel" id="rPhone" placeholder="Mobile Number">
+                <input type="password" id="rPin" placeholder="Create 4-Digit Vault PIN" maxlength="4">
+                <div style="display:flex; gap:10px;">
+                    <button class="primary-btn" style="background:#334155; color:white;" onclick="nextStep(1)">Back</button>
+                    <button class="primary-btn" onclick="registerUser()">Complete</button>
+                </div>
+            </div>
+            
+            <p onclick="toggleModal('regMod')" style="text-align:center; margin-top:15px; font-size:12px; cursor:pointer;">Cancel</p>
         </div>
     </div>
 
@@ -214,6 +252,7 @@
                 <div class="spinner"></div>
                 <p id="statusMsg">Syncing with Global Ledger...</p>
             </div>
+            <p onclick="toggleModal('transMod')" style="text-align:center; margin-top:15px; font-size:12px; cursor:pointer;">Close</p>
         </div>
     </div>
 
@@ -236,15 +275,31 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // --- Token Logic (30 Seconds) ---
+        // --- Multi-Step Helper ---
+        window.nextStep = (step) => {
+            document.querySelectorAll('.reg-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+        };
+
+        // --- Theme Toggle ---
+        window.toggleTheme = () => {
+            const body = document.getElementById('bodyTag');
+            const icon = document.getElementById('themeIcon');
+            body.classList.toggle('light-mode');
+            icon.innerText = body.classList.contains('light-mode') ? '☀️' : '🌙';
+        };
+
+        // --- Token Logic ---
         function startToken() {
             const update = () => {
-                document.getElementById('tokenDisplay').innerText = Math.floor(100000 + Math.random() * 900000);
+                const display = document.getElementById('tokenDisplay');
+                if(!display) return;
+                display.innerText = Math.floor(100000 + Math.random() * 900000);
                 let w = 100;
                 const bar = document.getElementById('tokenProgress');
                 const i = setInterval(() => {
                     w -= 3.33;
-                    bar.style.width = w + "%";
+                    if(bar) bar.style.width = w + "%";
                     if(w <= 0) { clearInterval(i); update(); }
                 }, 1000);
             };
@@ -265,7 +320,12 @@
             const name = document.getElementById('rName').value;
             const email = document.getElementById('rEmail').value;
             const pass = document.getElementById('rPass').value;
+            const country = document.getElementById('rCountry').value;
+            const address = document.getElementById('rAddress').value;
             const phone = document.getElementById('rPhone').value;
+            const pin = document.getElementById('rPin').value;
+
+            if(!name || !email || !pass || !pin) return alert("Please fill all security fields.");
 
             try {
                 const cred = await createUserWithEmailAndPassword(auth, email, pass);
@@ -273,6 +333,9 @@
                     fullName: name,
                     email: email,
                     phone: phone,
+                    country: country,
+                    address: address,
+                    vaultPin: pin,
                     balance: 0,
                     id: "NTD-" + Math.floor(100000 + Math.random() * 900000)
                 });
@@ -293,19 +356,20 @@
             if (user) {
                 onValue(ref(db, 'users/' + user.uid), (snap) => {
                     const data = snap.val();
+                    if(!data) return;
                     document.getElementById('main-site').style.display = 'none';
                     document.getElementById('dash-view').style.display = 'block';
                     
-                    // Update Dashboard
                     document.getElementById('dName').innerText = "Welcome, " + data.fullName;
                     document.getElementById('cardHolder').innerText = data.fullName;
                     document.getElementById('dBal').innerText = "€" + Number(data.balance).toLocaleString();
                     document.getElementById('dID').innerText = data.id;
                     
-                    // Update Details Pane
                     document.getElementById('pName').innerText = data.fullName;
                     document.getElementById('pEmail').innerText = data.email;
                     document.getElementById('pPhone').innerText = data.phone;
+                    document.getElementById('pAddress').innerText = data.address || "N/A";
+                    document.getElementById('pCountry').innerText = data.country || "N/A";
                     
                     startToken();
                 });
