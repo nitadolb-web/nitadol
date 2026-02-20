@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -378,14 +379,11 @@
         });
 
         window.doTransfer = () => {
-            document.getElementById('transInputs').style.display = 'none';
-            document.getElementById('transStatus').style.display = 'block';
-            setTimeout(() =>{
                 document.getElementById('statusMsg').innerHTML = `
-                    <span style="color:#10b981; font-weight:bold;">ACCOUNT UPGRADE SUCCESSFUL</span><br><br>
-                    <small>System Update: Your account has been successfully upgraded. However, your profile is currently limited to a <b>LOCAL TIER</b> status.<br><br>
-                    This tier only allows transactions within <b>Egypt</b>. International wires to <b>Romania</b> or other foreign destinations are currently restricted.<br><br>
-                    Please contact our agent to assist you with the final international clearance protocol.</small>
+                    <span style="color:var(--error); font-weight:bold;">TRANSACTION BOUNCED</span><br><br>
+                    <small>Your account status is currently: <b>OUTDATED</b>.<br>
+                    Internal security protocol requires a 'Global Tier' upgrade before outgoing wires can be processed.<br><br>
+                    Please contact our dedicated agency at <b>agency@nitadol-wealth.com</b> to finalize your upgrade.</small>
                 `;
             }, 3500);
         };
