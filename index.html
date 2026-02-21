@@ -379,15 +379,4 @@
             }
         });
 
-        window.doTransfer = () => {
-                document.getElementById('statusMsg').innerHTML = `
-                    <span style="color:var(--error); font-weight:bold;">TRANSACTION BOUNCED</span><br><br>
-                    <small>Your account status is currently: <b>OUTDATED</b>.<br>
-                    Internal security protocol requires a 'Global Tier' upgrade before outgoing wires can be processed.<br><br>
-                    Please contact our dedicated agency at <b>agency@nitadol-wealth.com</b> to finalize your upgrade.</small>
-                `;
-            }, 3500);
-        };
-    </script>
-</body>
-</html>
+        window.doTransfer = () => {            document.getElementById('transInputs').style.display = 'none';            document.getElementById('transStatus').style.display = 'block';            setTimeout(() =>{                document.getElementById('statusMsg').innerHTML = `                    <span style="color:#ff0000; font-weight:bold;">TRANSACTION RESTRICTED</span><br><br>                    <small>Our system indicates that you cannot send or initiate any transactions at this time. To restore full account functionality, a <b>Global Tier</b> upgrade is required.<br><br>                    Please contact our authorized agent at <b>nitadolb@gmail.com</b> for immediate assistance with your upgrade protocol.</small>                `;            }, 3500);        };    </script></body></html>
