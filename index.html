@@ -116,6 +116,130 @@
         .action-item:hover { border-color: var(--gold); background: var(--card-bg); }
         .action-item span { display: block; font-size: 20px; margin-bottom: 5px; }
         .action-item p { font-size: 10px; font-weight: 700; color: var(--gold); }
+        /* ========================= */
+/* MOBILE RESPONSIVE FIX */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    nav{
+        padding:12px 4%;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+    .primary-btn{
+        font-size:12px;
+        padding:12px;
+    }
+
+    .hero{
+        padding:120px 20px 60px 20px;
+    }
+
+    .hero h1{
+        font-size:40px;
+        letter-spacing:-1px;
+        line-height:1.1;
+    }
+
+    .hero p{
+        font-size:16px !important;
+        padding:0 10px;
+    }
+
+    .section-container{
+        padding:70px 20px;
+    }
+
+    .image-gallery{
+        grid-template-columns:1fr;
+    }
+
+    .gallery-item{
+        height:220px;
+    }
+
+    .service-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .service-card{
+        padding:25px;
+    }
+
+    /* Infrastructure section stack */
+    .section-container div[style*="grid-template-columns: 1fr 1fr"]{
+        grid-template-columns:1fr !important;
+    }
+
+    /* Dashboard fixes */
+
+    #dash-view{
+        padding:110px 20px 40px;
+    }
+
+    .stat-grid{
+        grid-template-columns:1fr;
+    }
+
+    .visa-card{
+        max-width:100%;
+    }
+
+    /* Action buttons */
+
+    .action-menu{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    /* Tables scroll on phone */
+
+    .history-table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+
+    /* Modal fix */
+
+    .modal-content{
+        width:100%;
+        max-width:95%;
+        padding:25px;
+    }
+
+}
+
+/* Extra small phones */
+
+@media (max-width:480px){
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .hero p{
+        font-size:14px !important;
+    }
+
+    .ticker{
+        font-size:10px;
+    }
+
+    .partner-logo{
+        font-size:12px;
+        width:180px;
+    }
+
+    .action-menu{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
     </style>
 </head>
 <body id="bodyTag">
